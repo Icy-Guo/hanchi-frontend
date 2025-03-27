@@ -1,1 +1,5 @@
-# Icy-Universe
+# hanchi-frontend
+
+```bash
+npm start
+```

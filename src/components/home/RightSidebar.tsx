@@ -19,8 +19,8 @@ export function RightSidebar({
   return (
     <div className="space-y-6 w-full">
       {/* GitHub 趋势榜 */}
-      <Card className="bg-white/50 backdrop-blur-sm w-full">
-        <CardHeader className="px-4 py-3">
+      <Card className="bg-white/50 backdrop-blur-sm w-full max-h-[400px] overflow-y-auto">
+        <CardHeader>
           <CardTitle className="text-lg font-semibold text-gray-800">
             GitHub 趋势榜
           </CardTitle>
@@ -79,8 +79,8 @@ export function RightSidebar({
       </Card>
 
       {/* Golang 热门项目 */}
-      <Card className="bg-white/50 backdrop-blur-sm w-full">
-        <CardHeader className="px-4 py-3">
+      <Card className="bg-white/50 backdrop-blur-sm w-full max-h-[400px] overflow-y-auto">
+        <CardHeader>
           <CardTitle className="text-lg font-semibold text-gray-800">
             Golang 热门项目
           </CardTitle>

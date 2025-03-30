@@ -46,7 +46,7 @@ export async function getTrendingRepos(): Promise<GitHubRepo[]> {
       q: 'created:>2024-01-01',
       sort: 'stars',
       order: 'desc',
-      per_page: 5,
+      per_page: 10,
     },
   });
   return response.data.items;
@@ -58,7 +58,7 @@ export async function getGolangRepos(): Promise<GitHubRepo[]> {
       q: 'language:go',
       sort: 'stars',
       order: 'desc',
-      per_page: 5,
+      per_page: 10,
     },
   });
   return response.data.items;

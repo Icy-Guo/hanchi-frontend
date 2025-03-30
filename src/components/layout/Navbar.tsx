@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Github } from 'lucide-react';
+import UserAvatar from '@/components/layout/UserAvatar';
 
 export function Navbar() {
   return (
@@ -17,22 +17,8 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* 右侧按钮组 */}
-        <div className="flex items-center space-x-6">
-          <Link href="/login">
-            <Button
-              variant="outline"
-              className="min-w-[100px] border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white hover:shadow-md transition-all"
-            >
-              登录
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button className="min-w-[100px] bg-orange-500 text-white hover:bg-orange-500/80 hover:shadow-md transition-all">
-              注册
-            </Button>
-          </Link>
-        </div>
+        {/* 用户头像/登录注册按钮 */}
+        <UserAvatar />
       </div>
     </nav>
   );

@@ -100,7 +100,6 @@ export default function PublishPage() {
 
   const handleSubmit = async () => {
     try {
-      setIsSubmitting(true);
       const userData = localStorage.getItem('userData');
       if (!userData) {
         toast.error('请先登录');
@@ -108,6 +107,7 @@ export default function PublishPage() {
         return;
       }
 
+      setIsSubmitting(true);
       const { accessToken } = JSON.parse(userData);
 
       const response = await fetch('http://localhost:8081/api/v1/post', {

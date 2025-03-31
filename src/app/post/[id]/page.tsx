@@ -86,17 +86,6 @@ export default function PostDetailPage() {
         }
 
         const data = await response.json();
-        // 打印完整的响应数据
-        console.log('完整的响应数据:', data);
-        console.log('data字段:', data.data);
-        if (data.data) {
-          console.log('帖子ID:', data.data.post_id);
-          console.log('帖子标题:', data.data.title);
-          console.log('创建时间:', data.data.create_time);
-          Object.keys(data.data).forEach((key) => {
-            console.log(`${key}:`, data.data[key]);
-          });
-        }
         setPost(data.data);
       } catch (error) {
         console.error('获取帖子失败:', error);

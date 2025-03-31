@@ -61,7 +61,7 @@ export default function UserAvatar() {
           </button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-36 p-0 border-0 shadow-none bg-white rounded-lg mt-2 border-gray-200 border"
+          className="w-36 p-0 shadow-none bg-white rounded-lg mt-2 border-gray-200 border"
           sideOffset={0}
           align="end"
         >

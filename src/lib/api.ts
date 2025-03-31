@@ -26,7 +26,7 @@ export async function getPosts(
     params: {
       size,
       page,
-      order: 'time',
+      order: 'time', // 'score'
     },
   });
   return response.data;

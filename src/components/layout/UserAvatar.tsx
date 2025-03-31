@@ -17,15 +17,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-
+import { useRouter } from 'next/navigation';
 export default function UserAvatar() {
   const { userData, setUserData } = useUser();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const router = useRouter();
 
   const handleLogout = () => {
     setUserData(null);
     localStorage.removeItem('userData');
     setShowLogoutDialog(false);
+    router.push('/');
   };
 
   if (!userData) {

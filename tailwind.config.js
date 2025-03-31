@@ -1,7 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import animate from 'tailwindcss-animate';
-
-const config = {
+module.exports = {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -25,11 +23,11 @@ const config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#ff6b00',
+          DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: '#fff5e6',
+          DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {
@@ -74,7 +72,5 @@ const config = {
       },
     },
   },
-  plugins: [animate],
+  plugins: ['tailwindcss-animate', '@tailwindcss/typography'],
 };
-
-export default config;

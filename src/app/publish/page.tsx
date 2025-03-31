@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import MarkdownIt from 'markdown-it';
@@ -13,12 +13,26 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
 import 'react-markdown-editor-lite/lib/index.css';
 
-const mdParser = new MarkdownIt();
+// 配置markdown-it
+const mdParser = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+  // 允许加载图片
+  breaks: true,
+});
+
 const Editor = dynamic(() => import('react-markdown-editor-lite'), {
   ssr: false,
 });
+
+interface Community {
+  community_id: number;
+  community_name: string;
+}
 
 export default function PublishPage() {
   const router = useRouter();
@@ -26,16 +40,37 @@ export default function PublishPage() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [communities, setCommunities] = useState<Community[]>([]);
 
-  const handleImageUpload = async (
-    file: File
-  ): Promise<{ url: string; alt: string }> => {
+  // 获取社区列表
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/api/v1/community');
+        if (!response.ok) {
+          throw new Error('获取社区列表失败');
+        }
+        const data = await response.json();
+        if (data.code === 1000 && Array.isArray(data.data)) {
+          setCommunities(data.data);
+        }
+      } catch (error) {
+        console.error('获取社区列表失败:', error);
+        toast.error('获取社区列表失败');
+      }
+    };
+
+    fetchCommunities();
+  }, []);
+
+  const handleImageUpload = async (file: File): Promise<string> => {
     try {
       const formData = new FormData();
       formData.append('file', file);
 
       const userData = localStorage.getItem('userData');
       if (!userData) {
+        toast.error('请先登录');
         throw new Error('请先登录');
       }
       const { accessToken } = JSON.parse(userData);
@@ -53,12 +88,12 @@ export default function PublishPage() {
       }
 
       const data = await response.json();
-      return {
-        url: data.url,
-        alt: file.name,
-      };
+      toast.success('图片上传成功');
+      // 直接返回图片URL，编辑器会自动处理成Markdown格式
+      return data.url;
     } catch (error) {
       console.error('图片上传失败:', error);
+      toast.error('图片上传失败');
       throw new Error('图片上传失败');
     }
   };
@@ -68,7 +103,7 @@ export default function PublishPage() {
       setIsSubmitting(true);
       const userData = localStorage.getItem('userData');
       if (!userData) {
-        alert('请先登录');
+        toast.error('请先登录');
         router.push('/login');
         return;
       }
@@ -92,11 +127,11 @@ export default function PublishPage() {
         throw new Error('发布失败');
       }
 
-      alert('发布成功！');
+      toast.success('发布成功！');
       router.push('/');
     } catch (error) {
       console.error('发布失败:', error);
-      alert('发布失败，请重试');
+      toast.error('发布失败，请重试');
     } finally {
       setIsSubmitting(false);
     }
@@ -112,9 +147,14 @@ export default function PublishPage() {
             <SelectValue placeholder="选择社区" />
           </SelectTrigger>
           <SelectContent className="bg-white">
-            <SelectItem value="1">Go社区</SelectItem>
-            <SelectItem value="2">Python社区</SelectItem>
-            <SelectItem value="3">Java社区</SelectItem>
+            {communities.map((community) => (
+              <SelectItem
+                key={community.community_id}
+                value={community.community_id.toString()}
+              >
+                {community.community_name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
@@ -136,7 +176,7 @@ export default function PublishPage() {
         <div className="flex justify-end">
           <Button
             variant="default"
-            className="bg-orange-500 hover:bg-orange-600"
+            className="bg-orange-500 hover:bg-orange-600 text-white"
             onClick={handleSubmit}
             disabled={isSubmitting || !title || !content}
           >

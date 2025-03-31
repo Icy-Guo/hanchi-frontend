@@ -20,6 +20,7 @@ export interface Post {
   community: Community;
   author_name: string;
   vote_num: number;
+  create_time: string;
 }
 
 export interface PostListResponse {

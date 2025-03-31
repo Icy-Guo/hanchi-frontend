@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ThumbsUp } from 'lucide-react';
 import MarkdownIt from 'markdown-it';
+import { formatDate } from '@/lib/utils';
 
 const mdParser = new MarkdownIt({
   html: true,
@@ -30,32 +31,6 @@ interface PostDetail {
   create_time: string;
   update_time: string;
   status: number;
-}
-
-// 格式化时间的辅助函数
-function formatDate(dateStr: string | null | undefined) {
-  if (!dateStr) {
-    return '未知时间';
-  }
-
-  try {
-    // 直接使用Date对象解析ISO格式的时间字符串
-    const date = new Date(dateStr);
-
-    // 格式化输出
-    return date.toLocaleString('zh-CN', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-    });
-  } catch (error) {
-    console.error('时间格式化错误:', error, '原始时间字符串:', dateStr);
-    return '时间格式错误';
-  }
 }
 
 export default function PostDetailPage() {

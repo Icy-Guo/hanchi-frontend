@@ -7,6 +7,7 @@ import { Post } from '@/types';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ThumbsUp } from 'lucide-react';
+import { formatDate } from '@/lib/utils';
 
 interface PostListProps {
   posts: Post[] | null;
@@ -52,6 +53,7 @@ export function PostList({ posts, total, currentPage }: PostListProps) {
                         <div className="flex items-center space-x-4 text-sm text-gray-500 flex-wrap">
                           <span>作者：{post.author_name}</span>
                           <span>分区：{post.community.community_name}</span>
+                          <span>发布时间：{formatDate(post.create_time)}</span>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2 flex-shrink-0">

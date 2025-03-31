@@ -17,7 +17,7 @@ export default async function Home({ searchParams }: PageProps) {
   const page = searchParams?.page ? Number(await searchParams.page) : 1;
   const communities = await getCommunities();
   const stats = getSiteStats();
-  const postsData = await getPosts(page);
+  const postsData = await getPosts(5, page);
   const trendingRepos = await getTrendingRepos();
   const golangRepos = await getGolangRepos();
 

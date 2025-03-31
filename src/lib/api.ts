@@ -43,7 +43,7 @@ export function getSiteStats() {
 export async function getTrendingRepos(): Promise<GitHubRepo[]> {
   const response = await githubClient.get('/search/repositories', {
     params: {
-      q: 'created:>2024-01-01',
+      q: 'created:>2025-01-01',
       sort: 'stars',
       order: 'desc',
       per_page: 10,

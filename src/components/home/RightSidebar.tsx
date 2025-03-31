@@ -3,9 +3,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GitHubRepo } from '@/types';
-import { Star, Code } from 'lucide-react';
+import { Star, Code, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface RightSidebarProps {
   trendingRepos: GitHubRepo[];
@@ -16,18 +18,28 @@ export function RightSidebar({
   trendingRepos,
   golangRepos,
 }: RightSidebarProps) {
+  const [showAllTrending, setShowAllTrending] = useState(false);
+  const [showAllGolang, setShowAllGolang] = useState(false);
+
+  const displayedTrendingRepos = showAllTrending
+    ? trendingRepos
+    : trendingRepos.slice(0, 3);
+  const displayedGolangRepos = showAllGolang
+    ? golangRepos
+    : golangRepos.slice(0, 3);
+
   return (
     <div className="space-y-6 w-full">
       {/* GitHub 趋势榜 */}
-      <Card className="bg-white/50 backdrop-blur-sm w-full max-h-[400px] overflow-y-auto">
+      <Card className="bg-white/50 backdrop-blur-sm w-full">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-gray-800">
-            GitHub 趋势榜
+            GitHub 趋势榜（2025）
           </CardTitle>
         </CardHeader>
         <CardContent className="px-4">
           <div className="space-y-4">
-            {trendingRepos.map((repo, index) => (
+            {displayedTrendingRepos.map((repo, index) => (
               <Link
                 key={repo.id}
                 href={repo.html_url}
@@ -74,20 +86,34 @@ export function RightSidebar({
                 </div>
               </Link>
             ))}
+            {trendingRepos.length > 3 && (
+              <Button
+                variant="ghost"
+                className="w-full text-orange-500 hover:text-orange-600 hover:bg-orange-50"
+                onClick={() => setShowAllTrending(!showAllTrending)}
+              >
+                <ChevronDown
+                  className={`h-4 w-4 mr-2 transition-transform ${
+                    showAllTrending ? 'rotate-180' : ''
+                  }`}
+                />
+                {showAllTrending ? '收起' : '显示更多'}
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>
 
       {/* Golang 热门项目 */}
-      <Card className="bg-white/50 backdrop-blur-sm w-full max-h-[400px] overflow-y-auto">
+      <Card className="bg-white/50 backdrop-blur-sm w-full">
         <CardHeader>
           <CardTitle className="text-lg font-semibold text-gray-800">
-            Golang 热门项目
+            Golang 热门项目（历史最受关注）
           </CardTitle>
         </CardHeader>
         <CardContent className="px-4">
           <div className="space-y-4">
-            {golangRepos.map((repo, index) => (
+            {displayedGolangRepos.map((repo, index) => (
               <Link
                 key={repo.id}
                 href={repo.html_url}
@@ -128,6 +154,20 @@ export function RightSidebar({
                 </div>
               </Link>
             ))}
+            {golangRepos.length > 3 && (
+              <Button
+                variant="ghost"
+                className="w-full text-orange-500 hover:text-orange-600 hover:bg-orange-50"
+                onClick={() => setShowAllGolang(!showAllGolang)}
+              >
+                <ChevronDown
+                  className={`h-4 w-4 mr-2 transition-transform ${
+                    showAllGolang ? 'rotate-180' : ''
+                  }`}
+                />
+                {showAllGolang ? '收起' : '显示更多'}
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>

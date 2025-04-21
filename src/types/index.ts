@@ -49,3 +49,21 @@ export interface GitHubRepo {
     avatar_url: string;
   };
 }
+
+export interface PostDetail {
+  id: number;
+  post_id: string;
+  title: string;
+  content: string;
+  author_id: string;
+  author_name?: string;
+  community_id: number;
+  community?: {
+    community_id: number;
+    community_name: string;
+  };
+  vote_num?: number;
+  create_time: string;
+  update_time: string;
+  status: number;
+}

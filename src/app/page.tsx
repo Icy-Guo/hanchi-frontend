@@ -1,6 +1,7 @@
 import { LeftSidebar } from '@/components/home/LeftSidebar';
 import { PostList } from '@/components/home/PostList';
 import { RightSidebar } from '@/components/home/RightSidebar';
+import { PageProps } from '@/types/props';
 import {
   getCommunities,
   getSiteStats,
@@ -8,10 +9,6 @@ import {
   getTrendingRepos,
   getGolangRepos,
 } from '@/lib/api';
-
-interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
-}
 
 export default async function Home({ searchParams }: PageProps) {
   const page = searchParams?.page ? Number(await searchParams.page) : 1;

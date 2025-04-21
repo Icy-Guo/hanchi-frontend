@@ -1,17 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Users, Clock, Hash, Code, Server } from 'lucide-react';
-import { Community } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
-
-interface LeftSidebarProps {
-  communities: Community[];
-  stats: {
-    visitorCount: number;
-    runningTime: string;
-  };
-}
+import { LeftSidebarProps } from '@/types/props';
 
 export function LeftSidebar({ communities, stats }: LeftSidebarProps) {
   return (

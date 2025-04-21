@@ -2,17 +2,12 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { GitHubRepo } from '@/types';
 import { Star, Code, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-
-interface RightSidebarProps {
-  trendingRepos: GitHubRepo[];
-  golangRepos: GitHubRepo[];
-}
+import { RightSidebarProps } from '@/types/props';
 
 export function RightSidebar({
   trendingRepos,

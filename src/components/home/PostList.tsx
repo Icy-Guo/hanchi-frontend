@@ -3,7 +3,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Post } from '@/types';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ThumbsUp, ThumbsDown, Flame } from 'lucide-react';
@@ -11,12 +10,7 @@ import { formatDate } from '@/lib/utils';
 import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
-
-interface PostListProps {
-  posts: Post[] | null;
-  total: number;
-  currentPage: number;
-}
+import { PostListProps } from '@/types/props';
 
 export function PostList({ posts, total, currentPage }: PostListProps) {
   const router = useRouter();

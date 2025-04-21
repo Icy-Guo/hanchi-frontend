@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { ThumbsUp } from 'lucide-react';
 import MarkdownIt from 'markdown-it';
 import { formatDate } from '@/lib/utils';
+import { PostDetail } from '@/types/index';
 
 const mdParser = new MarkdownIt({
   html: true,
@@ -14,24 +15,6 @@ const mdParser = new MarkdownIt({
   typographer: true,
   breaks: true,
 });
-
-interface PostDetail {
-  id: number;
-  post_id: string;
-  title: string;
-  content: string;
-  author_id: string;
-  author_name?: string;
-  community_id: number;
-  community?: {
-    community_id: number;
-    community_name: string;
-  };
-  vote_num?: number;
-  create_time: string;
-  update_time: string;
-  status: number;
-}
 
 export default function PostDetailPage() {
   const params = useParams();

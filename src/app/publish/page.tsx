@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import 'react-markdown-editor-lite/lib/index.css';
+import { Community } from '@/types/index';
 
 // 配置markdown-it
 const mdParser = new MarkdownIt({
@@ -28,11 +29,6 @@ const mdParser = new MarkdownIt({
 const Editor = dynamic(() => import('react-markdown-editor-lite'), {
   ssr: false,
 });
-
-interface Community {
-  community_id: number;
-  community_name: string;
-}
 
 export default function PublishPage() {
   const router = useRouter();

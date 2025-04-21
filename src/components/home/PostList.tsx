@@ -9,6 +9,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ThumbsUp, ThumbsDown, Flame } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { toast } from 'sonner';
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
 
 interface PostListProps {
   posts: Post[] | null;
@@ -20,11 +22,22 @@ export function PostList({ posts, total, currentPage }: PostListProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const totalPages = Math.ceil(total / 5); // 每页5条
+  const [jumpPage, setJumpPage] = useState('');
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
     router.push(`/?${params.toString()}`);
+  };
+
+  const handleJumpToPage = () => {
+    const pageNum = parseInt(jumpPage);
+    if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) {
+      toast.error(`请输入1-${totalPages}之间的页码`);
+      return;
+    }
+    handlePageChange(pageNum);
+    setJumpPage('');
   };
 
   const handleVote = async (postId: string, direction: number) => {
@@ -178,6 +191,25 @@ export function PostList({ posts, total, currentPage }: PostListProps) {
             >
               下一页
             </Button>
+            <div className="flex items-center space-x-2 ml-2">
+              <Input
+                type="number"
+                value={jumpPage}
+                onChange={(e) => setJumpPage(e.target.value)}
+                placeholder="页码"
+                className="w-20 h-8 text-sm"
+                min={1}
+                max={totalPages}
+              />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleJumpToPage}
+                className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+              >
+                跳转
+              </Button>
+            </div>
           </div>
         </div>
       )}

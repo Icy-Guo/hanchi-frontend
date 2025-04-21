@@ -163,56 +163,58 @@ export function PostList({ posts, total, currentPage }: PostListProps) {
             )}
           </div>
         </CardContent>
-      </Card>
 
-      {/* 分页 */}
-      {posts && posts.length > 0 && (
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-500">共 {total} 条帖子</div>
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
-            >
-              上一页
-            </Button>
-            <span className="text-sm text-gray-500">
-              第 {currentPage} 页 / 共 {totalPages} 页
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
-            >
-              下一页
-            </Button>
-            <div className="flex items-center space-x-2 ml-2">
-              <Input
-                type="number"
-                value={jumpPage}
-                onChange={(e) => setJumpPage(e.target.value)}
-                placeholder="页码"
-                className="w-20 h-8 text-sm"
-                min={1}
-                max={totalPages}
-              />
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleJumpToPage}
-                className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
-              >
-                跳转
-              </Button>
+        {/* 分页 - 移到卡片内部 */}
+        {posts && posts.length > 0 && (
+          <div className="px-6">
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-gray-500">共 {total} 条帖子</div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+                >
+                  上一页
+                </Button>
+                <span className="text-sm text-gray-500">
+                  第 {currentPage} 页 / 共 {totalPages} 页
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+                >
+                  下一页
+                </Button>
+                <div className="flex items-center space-x-2 ml-2">
+                  <Input
+                    type="number"
+                    value={jumpPage}
+                    onChange={(e) => setJumpPage(e.target.value)}
+                    placeholder="页码"
+                    className="w-18 h-8 text-sm"
+                    min={1}
+                    max={totalPages}
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleJumpToPage}
+                    className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+                  >
+                    跳转
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Card>
     </div>
   );
 }

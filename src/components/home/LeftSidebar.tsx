@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, Clock, Hash } from 'lucide-react';
+import { Users, Clock, Hash, Code, Server } from 'lucide-react';
 import { Community } from '@/types';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface LeftSidebarProps {
   communities: Community[];
@@ -35,6 +36,46 @@ export function LeftSidebar({ communities, stats }: LeftSidebarProps) {
             <span className="text-sm text-gray-600">
               运行时间：<span className="font-medium">{stats.runningTime}</span>
             </span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Code className="h-5 w-5 text-orange-500" />
+            <span className="text-sm text-gray-600">前端作者：</span>
+            <div className="relative w-6 h-6 rounded-full overflow-hidden border border-orange-200">
+              <Image
+                src="https://avatars.githubusercontent.com/Icy-Guo"
+                alt="Icy"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <Link
+              href="https://github.com/Icy-Guo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-orange-500 hover:text-orange-600"
+            >
+              Icy
+            </Link>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Server className="h-5 w-5 text-orange-500" />
+            <span className="text-sm text-gray-600">后端作者：</span>
+            <div className="relative w-6 h-6 rounded-full overflow-hidden border border-orange-200">
+              <Image
+                src="https://avatars.githubusercontent.com/hanchi3"
+                alt="Hanchi"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <Link
+              href="https://github.com/hanchi3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-orange-500 hover:text-orange-600"
+            >
+              Hanchi
+            </Link>
           </div>
         </CardContent>
       </Card>
